@@ -1,0 +1,45 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+%                                                                                    %
+%                  MODELO DE MONOGRAFIA DO E-COMP - POLI - UPE                       %
+%                                                                                    %
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Referencial Teórico \label{cap:referencial} }
+\section{Grafos}
+Um grafo $\mathcal{G=(V,E)}$ é definido por um conjunto $\mathcal{V=}$$\{v_1,v_2, \ldots,v_n\}$ de vértices 
+e por um conjunto $\mathcal{E=}$$\{e_1,e_2, \ldots,e_m\}$ de arestas tais que $\mathcal{E \subseteq V \times V }$
+e $\mathcal{V \cap E = \emptyset}$. Eles podem ser direcionados ou não. No primeiro caso, suas arestas são pares
+ordenados de vértices, já no segundo, a ordem é indiferente. Além disso, valores numéricos podem ser associados
+a cada aresta. Se este for o caso, o grafo é denominado ponderado. Um caminho de comprimento $L$ é uma sequência
+alternada $v_{1}e_{1}v_{2}e_{2}v_{3} \ldots v_{L-1}e_{L-1}v_{L}$ de vértices $v_{i}$ e arestas $e_{i}$ de forma que
+o vértice de destino de $e_{i}$ é $v_{i}$, e seu vértice de destino, $v_{i+1}$. Um cíclo é um caso particular de caminho onde $v_{1}=v_{L}$. Diz-se que um grafo é conectado quando existe ao menos um caminho conectando todos os pares de vértices.
+
+\par
+Um grafo $\mathcal{G}$ com $n$ vértices pode ser representado por uma matriz $\mathcal{A}=\left[a_{ij}\right]$ $n \times n$ como segue:
+
+\begin{gather}
+	a_{ij} =
+		\begin{cases}
+			w_{ij} & \text{se existe uma aresta de } a_{i} \text{ para } a_{j} \\
+			0 & \text{caso contrário }
+		\end{cases} 
+	\intertext{Onde:}
+	\begin{tabular}{>{$}r<{$}@{\ :\ }l}
+		w_{ij} & é o peso da aresta entre os vértices $v_{i}$ e $v_{j}$
+	\end{tabular}\nonumber
+\end{gather}
+
+\section{Redes Complexas}
+
+\section{Processamento de Texto}
+
+\section{Tipos de Redes Textuais}
+
+\section{Multilayer Perceptron}
+\subsection{Conceito 1}
+\subsection{Conceito 2}
+\section{Trabalhos Relacionados}

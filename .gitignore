@@ -1,0 +1,10 @@
+# LaTex
+*.aux
+*.bbl
+*.blg
+*.idx
+*.lof
+*.log
+*.lot
+*.gz
+*.toc

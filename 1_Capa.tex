@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+%                                                                                    %
+%                  MODELO DE MONOGRAFIA DO E-COMP - POLI - UPE                       %
+%                                                                                    %
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define as imagens do topo
+\newcommand\CapaBackground{
+    \put(0,0){
+        \parbox[b][\paperheight-3.0cm]{\paperwidth-2cm}{
+            \hspace*{1.5cm}
+            \includegraphics
+                [scale=0.5, width=\paperwidth, height=2.0cm, keepaspectratio]
+                {imagens/marcaPOLI.png}
+            \hspace*{\fill}
+            \includegraphics
+                [scale=0.5, width=\paperwidth, height=2.0cm, keepaspectratio]
+                {imagens/marcaECOMP.png}
+            \vfill
+        }
+    }
+}
+
+% Adiciona as imagens como marca d'água, mas só da página corrente
+\AddToShipoutPicture*{\CapaBackground}
+
+\begin{center}
+    \vspace*{3.0cm}
+    \LARGE \textbf{\imprimirtitulo}
+    \vskip 3.0cm
+    Trabalho de Conclusão de Curso \\
+    Engenharia da Computação \\
+    \vfill
+    \vfill
+    \vfill
+\end{center}
+
+\noindent \textbf{\imprimirautor} \\
+\noindent \textbf{Orientador}: \imprimirorientador \\
+%\noindent \textbf{Co-Orientador}: \ABNTcoorientadordata \\
+
+\begin{center}
+    \vfill
+    \includegraphics
+        [scale=0.5, width=\paperwidth, height=2.5cm, keepaspectratio]
+        {imagens/brasao_upe.jpg}
+\end{center} 

@@ -1,0 +1,198 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+%                                                                                    %
+%                  MODELO DE MONOGRAFIA DO E-COMP - POLI - UPE                       %
+%                                                                                    %
+% ---------------------------------------------------------------------------------  %
+% ---------------------------------------------------------------------------------  %
+% :: Histórico de alterações                                                         %
+% ---------------------------------------------------------------------------------  %
+% ** 2011-10-17, Gustavo H P Carvalho (gustavohpcarvalho@ecomp.poli.br)              %
+%    - Formatação do template para divulgação e uso pelos meus alunos.               %
+% ** 2011-12-27, Gustavo H P Carvalho (gustavohpcarvalho@ecomp.poli.br)              %
+%    - Correção do problema da numeração da lista de siglas.                         %
+% ** 2015-04-12, Gustavo H P Carvalho (gustavohpcarvalho@ecomp.poli.br)              %
+%    - Adaptação para pacote abntex2.                                                %
+% ---------------------------------------------------------------------------------  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,openright,oneside,a4paper,brazil]{abntex2}
+% O modelo utiliza a classe ABNTex 2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             PACOTES UTILIZADOS                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[latin1]{inputenc}	% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+
+\usepackage{eso-pic} % Uso de imagens em background (marca d'água)
+\usepackage[linesnumbered,portuguese,ruled,vlined]{algorithm2e} % Formatação de código
+\usepackage[alf,recuo=1cm,bibjustif]{abntex2cite} % Pacote de citação formato ABNT
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=black,          	% color of internal links
+    	citecolor=black,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=black,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              DADOS DA MONOGRAFIA                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Atualizar
+\autor{Marcello Angelis Coutinho de Medeiros}
+
+% Atualizar (em CAPSLOCK)
+\titulo{RECONHECIMENTO DE AUTORIA DE TEXTOS UTILIZANDO REDES COMPLEXAS}
+
+% Atualizar o nome do orientador e sua titulação
+% "M.Sc." para mestre ou "Dr." para doutor
+\orientador{Prof. Dr. Carmelo José Albanez Bastos Filho}
+
+% Atualizar, caso exista co-orientador
+% "M.Sc." para mestre ou "Dr." para doutor
+%\coorientador{Prof. M.Sc. Nome do Co-orientador}
+
+% O texto abaixo não deve ser modificado!!
+\preambulo{Monografia apresentada como requisito parcial para obtenção do diploma de Bacharel em Engenharia de Computação pela Escola Politécnica de Pernambuco - Universidade de Pernambuco}
+
+% O texto abaixo não deve ser modificado!!
+\instituicao{Universidade de Pernambuco \par Escola Politécnica de Pernambuco \par Graduação em Engenharia de Computação}
+
+% O texto abaixo não deve ser modificado!!
+\local{Recife - PE, Brasil}
+
+% Atualizar
+\data{27 de novembro de 2015}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             INÍCIO DO DOCUMENTO                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	% Retira espaço extra obsoleto entre as frases.
+	\frenchspacing 
+
+    % A partir das informações anteriores, incluir a capa da monografia
+    \include{1_Capa} % Estamos utilizando uma capa modificada e não a da ABNT
+
+	% Reinicia a numeração, pois a capa não conta
+	\setcounter{page}{1}
+
+    % A partir das informações anteriores, incluir a folha de rosto
+    \imprimirfolhaderosto % Estamos utilizando a folha de rosto padrão da ABNT
+
+    % Na versão final, esta página deve ser substituída pela folha de aprovação digitalizada
+    \include{2_FolhaAprovacao}
+
+    % Dedicatória (opcinal)
+    \include{3_Dedicatoria}
+
+    % Agradecimentos (opcinal)
+    \include{4_Agradecimentos}
+
+    % Resumo
+    \include{5_Resumo}
+
+    % Abstract
+    \include{6_Abstract}
+
+	% ---
+	% inserir lista de ilustrações
+	% ---
+	\pdfbookmark[0]{\listfigurename}{lof}
+	\listoffigures*
+	\cleardoublepage
+	% ---
+	
+	% ---
+	% inserir lista de tabelas
+	% ---
+	\pdfbookmark[0]{\listtablename}{lot}
+	\listoftables*
+	\cleardoublepage
+	% ---    
+
+    % O comando abaixo inclui a lista de siglas
+    \include{7_Siglas}
+
+    % Para adicionar glossário, lista de símbolos e outras listas,
+    % consultar a documentação da classe ABNTex
+
+	% ---
+	% inserir o sumario
+	% ---
+	
+	\pdfbookmark[0]{\contentsname}{}
+	\tableofcontents{}
+	\cleardoublepage
+	% ---
+	
+	\textual	
+
+    % Inclusão dos capítulos da monografia
+    \include{8_Capitulo1}
+    \include{9_Capitulo2}
+    \include{10_Capitulo3}
+    \include{11_Capitulo4}
+    \include{12_Capitulo5}
+
+	\postextual
+
+    % Modifica o nome para 'Referências' (tirando o 'Bibliográficas'
+	\renewcommand{\bibname}{Referências}
+
+    % Inclui as referências a partir do arquivo .bib com o seguinte nome
+    \bibliography{Referencias}
+
+    \apendices
+    % Inclusão dos Apêndices
+    \include{13_Apendice1}
+
+    \anexos
+    % Inclusão dos Anexos
+    \include{14_Anexo1}
+
+\end{document} 
