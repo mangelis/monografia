@@ -36,10 +36,55 @@ Um grafo $\mathcal{G}$ com $n$ vértices pode ser representado por uma matriz $\m
 \section{Redes Complexas}
 
 \section{Processamento de Texto}
+\subsection{\emph{Part-of-Speech tagging}}
+\emph{Part-of-Speech tagging} é a tarefa de rotular palavras em um texto de acordo com sua classe gramatical
+(substantivo, adjetivo, verbo, artigo, etc). Como muitas palavras, nas mais diversas línguas, são passíveis de 
+serem classificadas em mais de uma categoria, o processo de rotulação torna-se ambíguo. Nesta monografia, foi
+utilizado o \emph{part-of-Speech tagger} desenvolvido pela Universidade de Stanford \cite{stanford_nlp_core}
+\cite{stanford_2000_pos_tagger}\cite{stanford_2003_pos_tagger}.
 
 \section{Tipos de Redes Textuais}
+A seguir, os três tipos de redes mais utilizados para modelar textos são expostas.
+
+\subsection{Redes de co-ocorrência}
+A forma mais natural de associar palavras é pela conexão de palavras vizinhas, pois a linguagem escrita
+é composta por cadeiras lineares de palavras. Isso faz deste tipo de rede textual um dos mais empregados na literatura
+\cite{cancho_2001_small_world_language} \cite{amancio_2015_flunctuation}\cite{amancio_2015_complex_network_approach_stylometry}\cite{amancio_phd}. 
+Os grafos gerados podem ser direcionados ou não. A ordem das palavras pode refletir parcialmente nas relações
+sintáticas e semânticas entre elas.\cite{sole_language_networks}. Se houver \emph{stopwords} (palavras de baixo valor 
+semântico, contudo de grande importância gramatical) no texto, essas palavras serão \emph{hubs} na rede. Outras duas importantes
+características das redes de co-ocorrência de palavras é que elas são livres de escala e apresentam o comportamento \emph{small-world}
+\cite{amancio_phd}.
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=360pt]{imagens/co-occurrence-sally-amancio.jpg}
+		\textbf{
+			\caption{
+				Grafo não orientado obtido a partir da sentença "What's that? Asked Sally. 
+				Pay my bill for last week, due this morning. Sally got up quickly, and flitting 
+				down the table, put her arm round her friend's shoulder and whispered in her ear."  
+				do livro "The Adventures of Sally" de P.G. Wodehouse.
+			}
+			\label{fig:co-occurrence-sally-amancio}
+		}
+		\footnotesize{[Fonte: \cite{amancio_phd}]}
+	\end{center}
+\end{figure}
+
+\subsection{Redes Sintáticas}
+As redes sintáticas associam as palavras que apresentam dependência sintática entre si.
+Essas dependências podem ser trazidas à tona por meio das gramáticas de dependências. Esse
+formalismo é capaz de definir a estrutura sintática de uma sentença como uma árvore. Os \emph{hubs}
+neste tipo de rede são palavras funcionais, mas seus graus de entrada e saída são diferentes da
+rede anterior \cite{sole_language_networks}. Entretanto, 90\% das conexões das redes sintáticas também
+ocorrem nas redes de co-ocorrência \cite{amancio_phd}. Pode-se interpretar então que as redes de
+co-ocorrência são aproximações das redes sintáticas. Um outro fato que corrobora esta ideia é que
+a rede em questão também apresenta, como a anterior, propriedades livre de escala e \emph{small-world}.
+
+\subsection{Redes Semânticas}
+Redes semânticas podem ser construídas a partir de palavras que representam conceitos e associando-as
+se se possuírem alguma relação semântica básica como, por exemplo, "é-um", "parte-todo" ou "oposição binária"
+\cite{sigman_2002_organization_wordnet}\cite{sole_language_networks}. Também foi verificado que essas redes apresentam uma organização altamente eficiente e que os \emph{hubs} representam palavras polissêmicas \cite{sole_language_networks}. Comumente, as redes semânticas apresentam um alto coeficiente de clusterização. Essa característica permite que buscas por associação sejam feitas rapidamente \cite{motter_2003_topology_net_lang}.
 
 \section{Multilayer Perceptron}
-\subsection{Conceito 1}
-\subsection{Conceito 2}
-\section{Trabalhos Relacionados}
