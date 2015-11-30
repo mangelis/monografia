@@ -10,4 +10,23 @@
 
 \chapter{Considerações Finais \label{cap:conclusao} }
 \section{Conclusões}
-\section{Trabalhos Futuros} 
+O estudo de redes complexas é um campo muito ativo e desafiador na ciência. Elas apresentam ótima capacidade de representar sistemas dinâmicos e têm sido empregadas interdisciplinarmente nas mais diversas áreas do conhecimento.
+
+\par
+Mesmo com promissoras aplicações de redes complexas no processamento de textos e de linguagem natural, muito ainda pode ser avançado. Este trabalho propôs uma nova metodologia de composição de grafos a partir de textos a partir das classes gramaticais. No dito modelo, os nós são pares de \emph{part-of-speech tags} e as arestas representam que sua co-ocorrência. Além disso, foi feito uso de palavras comumente desconsideradas na construção de redes de co-ocorrência: as \emph{stopwords}, e os resultados dos classificadores apontaram que esses vocábulos são importantes para o tipo de rede proposta.
+
+Os resultados sugerem que as redes mais simples (menor número de camadas) têm uma melhor capacidade de generalização do problema independentemente da presença de \emph{stopwords}. Eles ainda indicam que redes de classes gramaticais tem uma um bom potêncial para capturar traços estilísticos em textos.
+
+\section{Trabalhos Futuros}
+Entre os trabalhos futuros, estão:
+
+\begin{enumerate}
+	\item Construir novos modelos de construção de grafos de textos
+	\item Usar novas métricas mais específicas para grafos ponderados e direcionados como a Reciprocidade e as novas definições de coeficiente de aglomeração;
+	\item Utilizar algumas métricas de séries temporais como feito em \cite{amancio_phd}
+	\item Modificar a ponderação de métricas na caracterização do grafo como um todo;
+	\item Aumentar o número de parâmetros variáveis na MLP
+	\item Avaliar outros classificadores com novas configurações, como o SVM e Random Forests;
+	\item Modelar textos de autores de épocas diferentes;
+	\item Modelar textos de outros idiomas;
+\end{enumerate} 

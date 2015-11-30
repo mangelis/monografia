@@ -151,7 +151,7 @@ Cada um dos blocos textuais dá origem a um grafo. Diferentemente do método mais 
 Tendo em vista que foram utilizadas 37 \emph{tags} para classificar os vocábulos, existem $\frac{37!}{(37-2)!}=1332$ vértices possíveis na rede e $1332(1332 - 1)=1772892$ possíveis arestas. Entretando, apenas uma pequena fração desses vértices aparecem em cada grafo. As redes obtidas são esparsas e, neste aspecto, condizem com as características esperadas para redes reais.
 
 \par
-Outra importante característica dos grafos gerados está nos pesos de suas arestas. Comumente o peso $w_{ij}$ de uma aresta entre os vértices $v_{i}$ e $v_{j}$ representa o número de vezes em que há uma ligação unitária partindo do vértice $v_{i}$ para o vértice $v_{j}$. Os pesos são de fundamental importância na rede e em sua caracterização pois influenciam os valores de menores caminhos entre nós. Para evitar que nós frequentemente conectados sejam considerados distantes (altos valores dos pesos das arestas que os conectam), os pesos foram redefinidos. Após o cálculo de todos os pesos, esses terão seus valores invertidos, como definido na Equação \ref{pesos_invertidos}.
+Outra importante característica dos grafos gerados está nos pesos de suas arestas. Comumente o peso $w_{ij}$ de uma aresta entre os vértices $v_{i}$ e $v_{j}$ representa o número de vezes em que há uma ligação unitária partindo do vértice $v_{i}$ para o vértice $v_{j}$. Os pesos são de fundamental importância na rede e em sua caracterização pois influenciam os valores de menores caminhos entre nós. Para evitar que nós frequentemente conectados sejam considerados distantes (altos valores dos pesos das arestas que os conectam), os pesos foram redefinidos. Após o cálculo de todos os pesos, esses terão seus valores invertidos, como definido na Equação \ref{eq:pesos_invertidos}.
 
 \section{Caracterização dos Grafos}
 A grande maioria das métricas aplicadas nos grafos gerados neste trabalho são de natureza individual para cada vértice do grafo, ou seja, mesmo que algumas utilizem conceitos globais, essas métricas são individuais para cada nó. Entretando, são necessárias medidas que caracterizem o grafo como todo. Existe um grande número de maneiras de se extrair características numéricas de grafos a partir das métricas se seus vértices. Em \cite{amancio_phd}, por exemplo, as medidas dos vértices são ponderadas de acordo com sua distribuição de probabilidade. Para o escopo deste trabalho, o método empregado será o mais direto e convencional: médias aritméticas e desvios padrão. Desta forma, cada uma das medidas: coeficiente de aglomeração $C$, \emph{betweenness} $B$, \emph{Pagerank} e caminho mínimo médio $L$ apresentará dois valores para cada grafo.
@@ -168,7 +168,26 @@ Além das métricas de redes complexas citadas acima, foram adicionadas algumas ca
 Para classificar os textos, foi utilizada uma rede neural MLP treinada com o algoritmo \emph{backpropagation}. Todas as configurações de MLPs para o problema tratado neste trabalho possuem 13 neurônios de entrada (um para cada característica citada acima) e 8 neurônios de saída, sendo cada um ativado para um autor diferente.
 
 \par
-Como o número de blocos de textos é consideravelmente diferente para cada autor, conforme observado na Tabela \ref{tab:numero_blocos_autor}, $n$ blocos são selecionados pseudoaleatoriamente para cada autor, onde $n$ é a menor quantidade total de blocos possídos por um deles. Essa seleção é importantíssima pois evita um grande desbalanceamento das classes, desbalanceamento esse que poderia comprometer ou, até mesmo, mascarar os resultados obtidos pelo classificador.
+Como o número de blocos de textos é consideravelmente diferente para cada autor, conforme observado na Tabela \ref{tab:numero_blocos_autor}, $n$ blocos são selecionados pseudoaleatoriamente para cada autor, onde $n$ é a menor quantidade total de blocos possuídos por um deles. Essa seleção é importantíssima pois evita um grande desbalanceamento das classes, desbalanceamento esse que poderia comprometer ou, até mesmo, mascarar os resultados obtidos pelo classificador.
+
+\subsection{Configuração do Classificador}
+\label{sec:configuracao_classificador}
+Nos experimentos realizados, o MLP teve as seguintes configurações:
+\begin{enumerate}
+	\item função de ativação: sigmóide logística para todos os nós;
+	\item algoritmo de treinamento: \emph{backpropagation}
+	\item critério de parada: 20 épocas consecutivas sem melhora ou 5000 iterações
+	\item momentum: 0.3
+	\item tamanho do lote: 100
+	\item arquitetura:
+		\subitem 1 ou 2 camadas escondidas
+		\subitem 5, 10 ou 20 nós em cada camada escondida
+\end{enumerate}
+
+Para evitar uma explosão combinatória de experimentos, deve-se perceber que alguns parâmetros da rede MLP foram fixados. Apenas aqueles que demonstraram maior impacto no desempenho do classificador são variáveis.
+
+\par
+As configurações acima foram aplicadas sobre grafos gerados a partir de textos com e sem \emph{stopwords}.
 
 \subsection{Avaliação da Classificação}
 Para validação das classificações obtidas foi utilizado o \emph{k-fold}. Esse é um método de validação cruzada no qual os dados são divididos em $k$ subconjuntos (\emph{folds}) disjuntos de cardinalidade aproximadamente iguais. $k-1$ conjuntos são utilizados para classificação, enquanto o $fold$ restante é usado para teste. Este processo é realizado $k$ vezes até que todos os conjuntos tenham sido utilizados para teste uma vez. O resultado é a média e o desvio padrão obtidos para todos os experimentos.

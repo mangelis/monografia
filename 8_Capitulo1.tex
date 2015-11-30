@@ -10,63 +10,26 @@
 
 \chapter{Introdução \label{cap:introducao} }
 
-Um exemplo de figura pode ser visto na Figura~\ref{fig:MARCA-ECOMP}.
-
-
-abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc.
-
-jpaoeirjapoiejr aeproiajpeoirjapeori apoeirjapoeirjape paoejrpaoiejr
-
-\section{Protocolo da RSL}
-
-\subsection{Processo de Selecão}
-
-\paragraph{Critérios de Inclusão} ..ajeporiajeroiajeproiajerpoiajerpia
-
-\paragraph{Critérios de Exclusão} erijapeorija peoirjapoierj
-
-
-\begin{figure}[htpb]
-	\begin{center}
-	\includegraphics[width=80pt]{imagens/marcaECOMP.png}
-		\textbf{
-			\caption{
-				Logo do eComp.
-			}
-			\label{fig:MARCA-ECOMP}
-		}
-		\footnotesize{[Fonte: reproduzido de ...]}
-	\end{center}
-\end{figure}
-
-Já a Tabela~\ref{tab:Exemplo} mostra um exemplo de tabela.
-
-\begin{table}[htbp]
-	\centering
-	\textbf{
-		\caption{Exemplo de Tabela.}
-		\label{tab:Exemplo}
-	}
-	\footnotesize{[Fonte: elaboração própria]\\}
-    \begin{tabular}{ p{0.5cm} | p{2.5cm} | p{2.5cm} }
-        \hline
-            \bfseries & \bfseries F1-A1,U2 & \bfseries F1-A1,U4 \\
-        \hline\hline
-            \bfseries R1
-                & 1,117.21ms
-                & 503,954.20ms \\
-        \hline
-            \bfseries R2
-                & 1,134.83ms
-                & 484,654.02ms \\
-        \hline
-    \end{tabular}
-\end{table}
-
-Exemplos de citação \cite{costa_2011_analyzing_and_modeling}: de acordo com \cite{modelando_textos_redes_complexas}.
-
 \section{Qualificação do Problema}
+Desde o início do sécio XIX, há o interesse de se determinar características estilísticas de um texto por medidas estatísticas. Muitos trabalhos foram propostos sobre o tema e sua grande maioria continua operando estatisticamente como, por exemplo, calculando a frequência de constituites do texto (palavras, frasesm, letras, etc). Atualmente a análise estilística (estilometria) de textos tem aplicações em forense e mineração da web.
+
+\par
+Um dos componentes da estilometria é o reconhecimento de autoria. Assim como o primeiro, esse reconhecimento se dá fundamentalmente por explorações nos padrões estatísticos dos textos. Entretanto, recentemente uma nova abordagem tem sido utilizada: modelar os textos como redes complexas e extrair características textuais através de propriedades topológicas das redes que os representa. Esta alternativa tem se mostrado bastante promissora, como pode ser atestado pelos resultados obtidos em \cite{amancio_phd}\cite{amancio_2015_complex_network_approach_stylometry}\cite{modelando_textos_redes_complexas}.
+
+\par
+Este trabalho continua a empregar os métodos citados acima, mas, além disso, propõe um método de associação entre palavras que até então não foi concebido pela literatura.
+
+
 \section{Objetivos}
+Este trabalho objetivou reconhecer a autoria de um texto modelando-o como um grafo. Para isso, uma nova abordagem de criação de grafos de textos foi utilizada em conjunto com o uso de um eficaz e reconhecido aproximador de funções.
+
 \subsection{Objetivos Específicos}
-\section{Resultados e Impactos Esperados}
+\begin{enumerate}
+	\item Propor uma novo padrão de associação entre os elementos que constituem os textos
+	\item Identificar quais as métricas que melhor caracterizam
+	 as propriedades estilísticas dos grafos que modelam textos;
+	 \item Verificar se o modelo encontrado apresenta viabilidade da classificação de autoria;
+\end{enumerate}
+
 \section{Estrutura da Monografia} 
+Esta monografia está dividida em 5 capítulos. No capítulo 2, são introduzidos os conceitos primodiais que sustentam este trabalho: grafos, redes complexas, processamento de texto (principamente o \emph{part-of-speech taggin}) e redes neurais perceptron de múltiplas camadas. O capítulo 3 desenvolve acerca da obtenção dos livros, seus pré-processamentos, divisões, criação e caracterização dos grafos, assim como sua classificação por meio das MLPs. O capítulo 4 é responsável por apresentar os resultados e comentá-los. No quinto e último capítulo, as ideias são concluídas e são listados alguns possíveis trabalhos futuros que potencialmente podem melhorar os resultados até agora obtidos.

@@ -8,6 +8,83 @@
 % ---------------------------------------------------------------------------------  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Resultados \label{cap:resultados} }
-\section{A}
-\section{B}
+\chapter{Resultados} \label{cap:resultados} 
+Na Tabela \ref{tab:tabela_taxa_acertos} são mostrados a média e desvio padrão (entre parênteses) dos resultados dos seis experimentos descritos na Seção \ref{sec:configuracao_classificador}. As configurações da rede podem ser observadas na Tabela \ref{tab:tabela_configuracoes}. Todos os resultados são expostos mais claramente na Figura \ref{fig:taxa_classificacao}, onde estão repreentados os \emph{boxplots} das taxas de classificação em função da configuração da MLP.
+
+\begin{table}[htbp]
+\centering
+\textbf{
+	\caption{Resultados MLP}
+	\label{tab:tabela_taxa_acertos}
+}
+\begin{tabular}{ c c c }
+	\hline
+	\textbf{Configuração} & \textbf{Grafo com \emph{Stopwords}} & \textbf{Grafo sem \emph{Stopwords}}\\
+	\hline
+	1 & 52,70(10,03) & 47,96(9,86) \\
+	2 & 51,56(9,13)  & 47,61(7,85) \\
+	3 & 49,03(7,67)  & 46,55(9,10) \\
+	4 & 40,77(12,08) & 34,87(11,56) \\
+	5 & 38,36(13,61) & 34,05(14,79) \\
+	6 & 36,87(13,68) & 29,57(12,16) \\
+	\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	
+	\textbf{
+		\caption{Configurações da MLP}
+		\label{tab:tabela_configuracoes}
+	}	
+	\begin{tabular}{ c c c }
+		\hline
+		\textbf{Configuração} & \textbf{Número de Camadas} & \textbf{Número de Neurônios}\\
+		\hline
+		1 & 1 & $\left[ 10 \right]$ \\
+		2 & 1 & $\left[ 20 \right]$ \\
+		3 & 1 & $\left[ 5 \right]$ \\
+		4 & 2 & $\left[ 10, 10 \right]$ \\
+		5 & 2 & $\left[ 20, 20 \right]$ \\
+		6 & 2 & $\left[ 5, 5 \right]$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=400pt]{imagens/classificacao_mlp.png}
+		\textbf{
+			\caption{
+				\emph{Boxplots} das configurações da MLP
+			}
+			\label{fig:taxa_classificacao}
+		}
+	\end{center}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	
+	\textbf{
+		\caption{Matriz de confusão para uma execução da MLP em configuração 1 com escore 52,94\%}
+		\label{tab:matriz_de_confusao}
+	}	
+	\begin{tabular}{ c c c c c c c c c }
+
+		& HHM & ACD & EAP & BS & CD & TH & MT & PGW  \\
+		HHM & 36 & 4 & 3 & 5 & 2 & 0 & 1 & 0 \\
+		ACD & 16 & 9 & 5 & 7 & 3 & 2 & 1 & 8  \\
+		EAP & 4 & 3 & 38 & 2 & 2 & 0 & 1 & 1  \\
+		BS & 4 & 6 & 0 & 35 & 3 & 2 & 0 & 1  \\
+		CD & 2 & 0 & 7 & 2 & 21 & 3 & 16 & 0  \\
+		TH & 2 & 4 & 4 & 2 & 7 & 16 & 51 & 11  \\
+		MT & 1 & 2 & 1 & 1 & 15 & 3 & 24 & 4  \\
+		PGW & 0 & 2 & 0 & 2 & 0 & 6 & 4 & 37  \\
+		
+	\end{tabular}
+\end{table}
+
+\par
+Os resultados sugerem que a remoção das \emph{stopwords} compromete a capacidade da rede de representar características estilísticas. A matriz de confusão mostrada na Tabela \ref{tab:matriz_de_confusao} pode indicar que naturalmente existem autores cujos traços de estilo não são bem capturados pela rede. É o caso de Arthur Conan Doyle e Thomas Hardy, que foram muito confundidos com Hector Hugh Munro e Mark Twain respectivamente.
