@@ -9,7 +9,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Método de Pesquisa \label{cap:metodo} }
-Este trabalho 
+Este capítulo elucidará os passo, processos e métodos utilizados para classificar textos, por autoria, usando redes complexas.
+Esta tarefa já foi realizada antes \cite{amancio_2011_comparing_intermittency}\cite{amancio_2015_complex_network_approach_stylometry}\cite{amancio_2015_flunctuation}\cite{amancio_2015_concentric_style}\cite{amancio_phd}, porém o presente trabalho modifica abordagem no tocante à criação da rede a partir dos textos. Nos trabalhos supracitados, os textos são modelados como redes de co-ocorrência, enquanto neste, pares de classificações gramaticais (\emph{part-of-speech tagging}) são conectados ao primeiro par consecutivo.
 
 \begin{table}[htbp]
 	\centering
@@ -53,18 +54,125 @@ Este trabalho
 		The Adventures of Sally & Pelham Grenville Wodehouse \\
 		The Clicking of Cuthbert & Pelham Grenville Wodehouse \\
 		The Man with Two Left Feet & Pelham Grenville Wodehouse \\
-		A Changed Man and Other Tales & Thomar Hardy \\
-		A Pair of Blue Eyes & Thomar Hardy \\
-		Far from the Madding Crowd & Thomar Hardy \\
-		Jude the Obscure & Thomar Hardy \\
-		The Hand of Ethelberta & Thomar Hardy \\
+		A Changed Man and Other Tales & Thomas Hardy \\
+		A Pair of Blue Eyes & Thomas Hardy \\
+		Far from the Madding Crowd & Thomas Hardy \\
+		Jude the Obscure & Thomas Hardy \\
+		The Hand of Ethelberta & Thomas Hardy \\
 		\hline
 	\end{tabular}
 \end{table}
 
-\section{Obtenção dos Textos}
-%Caracterizacao tambem
+
+
+\section{Criação da base de textos}
+Para montagem da base de textos utilizada nesta monografia, foram utilizados 40 textos. Esses são, em sua maioria, os mesmos utilizados em \cite{amancio_phd}. São todos de autores da língua inglesa que viveram em meados do século XIX. Além da motivação de usar textos já submetidos ao reconhecimento de autoria, também se pode adicionar uma outra: dado que os autores compartilham o mesmo idioma e época, é de se esperar que seus estilos sejam relativamente parecidos, tornando assim a tarefa de reconhecimento de autoria mais complexa. A lista completa de títulos utilizados está presente na Tabela \ref{tab:lista_livros}. No total, são 8 autores, 5 livros cada, totalizando 40 livros.
+
+\par
+Como a quantidade de textos é insuficiente para aplicação em um classificador, e seus tamanhos são grandes e bastante desiguais, como demonstrado pela Tabela \ref{tab:numero_blocos_autor}, eles foram divididos em grupos de 5000 palavras. A princípio, outros tamanhos foram testados, contudo esse foi o que apresentou melhores resultados. Trechos muito curtos foram evitados, pois não conseguiriam criar um grafo de expressividade significativa. Por outro lado, segmentos demasiadamente longos também foram rejeitados, pois diminuiam substancialmente o número de exemplos capazes de serem expostos ao classificador. Durante a divisão dos fragmentos, houve o cuidado de que se evitasse o rompimento de parágrafos. Isto porque, pela própria natureza e definição desse componente textual, das sentenças neles contidas é esperada uma grande similaridade semântica. Por isso, os blocos resultantes de palavras têm aproximadamente 5000 palavras.
+
+\begin{table}[htbp]
+	\centering
+	\textbf{
+		\caption{Número, por autor, de blocos textuais com 5000 palavras.}
+		\label{tab:numero_blocos_autor}
+	}
+	\footnotesize{[Fonte: elaboração própria]\\}
+	\begin{tabular}{ l r }
+		\hline
+		\textbf{Autor} & \textbf{Número de blocos textuais} \\
+		\hline
+		Arthur Conan Doyle & 51 \\
+		Bram Stoker & 88 \\
+		Charles Dickens & 103 \\
+		Edgar Allan Poe & 85 \\
+		Hector Hugh Munro & 51 \\
+		Mark Twain & 78 \\
+		Pelham Grenville Wodehouse & 59 \\
+		Thomas Hardy & 119 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\par
+No decorrer deste escrito, quando conveniente, as menções aos autores serão feitas por uso das abreviaturas de seus nomes como mostrado na Tabela \ref{tab:siglas_autores}. Todos os textos foram obtidos gratuitamente a partir do portal www.gutemberg.org. Fora feito um único pré-processamento antes dos textos serem dividos: a remoção dos cabeçalhos e rodapés inseridos pelo \emph{site} supracitado.
+
+\begin{table}[htbp]
+	\centering
+	\textbf{
+		\caption{Abreviatura dos nomes dos autores.}
+		\label{tab:siglas_autores}
+	}
+	\footnotesize{[Fonte: elaboração própria]\\}
+	\begin{tabular}{ l r }
+		\hline
+		\textbf{Autor} & \textbf{Abreviatura} \\
+		\hline
+		Arthur Conan Doyle & ACD \\
+		Bram Stoker & BS \\
+		Charles Dickens & CD \\
+		Edgar Allan Poe & EAP \\
+		Hector Hugh Munro & HHM \\
+		Mark Twain & MT \\
+		Pelham Grenville Wodehouse & PGW \\
+		Thomas Hardy & TH \\
+		\hline
+	\end{tabular}
+\end{table}
+ 
 \section{Pré-processamento}
+Para cada bloco de texto resultante da etapa anterior, foram executados os seguintes passos:
+\begin{enumerate}
+	\item remoção dos indicadores de capítulos, dedicatórias, notas e quaisquer trechos que não compusessem o corpo efetivo da obra em questão. Esta decisão foi tomada pois o principal objetivo é a caracterização da autoria na obra. Fragmentos avulsos, ou até mesmo de autoria diferente, poderiam representar ruídos no processo de classificação;
+	\item segmentação de linhas: a fragmentação do texto em frases viabiliza algumas das operações citadas a baixo. Além disso, inicialmente
+	 teve-se a ideia de modelar os vértices do grafo como sendo as frases do texto (compostas não pelas palavras propriamente ditas, mas por suas classes gramaticais (\emph{part-of-speech tagging}), todavia essa abordagem não obteve sucesso devido a pouca repetição da estrutura completa das frases;
+	\item remoção de \emph{stopwords} (quando aplicável): \emph{stopwords} são palavras que carregam pouco valor semântico. Geralmente são artigos, alguns pronomes, e palavras do gênero. Embora uma grande quantidade de trabalhos opte por removê-las, em uma das abordagens executadas neste trabalho, elas não foram removidas;
+	\item \emph{part-of-speech tagging}: é o processo onde a cada palavra do texto será associada a sua respectiva classe gramatical \emph{part-of-speech tagging}. Foi utilizado o \emph{Stanford part-of-speech tagger} \cite{stanford_nlp_core}\cite{stanford_2000_pos_tagger}\cite{stanford_2003_pos_tagger}. Esta etapa tem uma relevância especial para a presente monografia, pois a abordagem nela utilizada cria grafos cujos nós são pares de \emph{tags} encontradas pelo classificador acima. Todas as \emph{tags} aplicáveis pelo \emph{tagger} estão disponíveis na Tabela \ref{tabela:pos_tags} do Apêndice \ref{apendice:tabela_pos}. Ao todo, as palavras podem ser classificadas em 45 categorias, mas os 9 primeiros itens da tabela referenciada acima (exceto os delimitadores de sentenças) não foram utilizados, restando assim 37 \emph{tags}. A Figura \ref{fig:pos_tom_sawyer} mostra um exemplo da classificação de palavras em \emph{tags}.
+	
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=400pt]{imagens/pos_tom_sawyer.png}
+		\textbf{
+			\caption{
+				Frase do livro \emph{The Adventures of Tom Sawyer}, de Mark Twain, classificado em \emph{ part-of-speech tags}
+			}
+			\label{fig:pos_tom_sawyer}
+		}
+		\footnotesize{[Fonte: reproduzido de \text{http://nlp.stanford.edu:8080/corenlp/process}]}
+	\end{center}
+\end{figure}
+
+\end{enumerate}
+
 \section{Criação dos Grafos}
+Cada um dos blocos textuais dá origem a um grafo. Diferentemente do método mais usual empregado na literatura, que modela o texto como uma rede de co-ocorrência de palavras \cite{amancio_phd}\cite{amancio_2015_flunctuation}\cite{amancio_2015_complex_network_approach_stylometry}, a metodologia aqui empregada constrói uma rede de co-ocorrência de pares de funções gramaticais. Até o presente conhecimento, esta alternativa é inédita. Ela foi pensada com o propósito de capturar ainda mais relações sintáticas e, até certo ponto, também semânticas dos textos em questão.  
+
+\par
+Tendo em vista que foram utilizadas 37 \emph{tags} para classificar os vocábulos, existem $\frac{37!}{(37-2)!}=1332$ vértices possíveis na rede e $1332(1332 - 1)=1772892$ possíveis arestas. Entretando, apenas uma pequena fração desses vértices aparecem em cada grafo. As redes obtidas são esparsas e, neste aspecto, condizem com as características esperadas para redes reais.
+
+\par
+Outra importante característica dos grafos gerados está nos pesos de suas arestas. Comumente o peso $w_{ij}$ de uma aresta entre os vértices $v_{i}$ e $v_{j}$ representa o número de vezes em que há uma ligação unitária partindo do vértice $v_{i}$ para o vértice $v_{j}$. Os pesos são de fundamental importância na rede e em sua caracterização pois influenciam os valores de menores caminhos entre nós. Para evitar que nós frequentemente conectados sejam considerados distantes (altos valores dos pesos das arestas que os conectam), os pesos foram redefinidos. Após o cálculo de todos os pesos, esses terão seus valores invertidos, como definido na Equação \ref{pesos_invertidos}.
+
 \section{Caracterização dos Grafos}
+A grande maioria das métricas aplicadas nos grafos gerados neste trabalho são de natureza individual para cada vértice do grafo, ou seja, mesmo que algumas utilizem conceitos globais, essas métricas são individuais para cada nó. Entretando, são necessárias medidas que caracterizem o grafo como todo. Existe um grande número de maneiras de se extrair características numéricas de grafos a partir das métricas se seus vértices. Em \cite{amancio_phd}, por exemplo, as medidas dos vértices são ponderadas de acordo com sua distribuição de probabilidade. Para o escopo deste trabalho, o método empregado será o mais direto e convencional: médias aritméticas e desvios padrão. Desta forma, cada uma das medidas: coeficiente de aglomeração $C$, \emph{betweenness} $B$, \emph{Pagerank} e caminho mínimo médio $L$ apresentará dois valores para cada grafo.
+
+\par
+Além das métricas de redes complexas citadas acima, foram adicionadas algumas características a elas:
+
+\begin{enumerate}
+	\item média e desvio padrão dos comprimentos das sentenças;
+	\item média e desvio padrão das frequências de cada \emph{tag}.
+\end{enumerate}
+
 \section{Classificação}
+Para classificar os textos, foi utilizada uma rede neural MLP treinada com o algoritmo \emph{backpropagation}. Todas as configurações de MLPs para o problema tratado neste trabalho possuem 13 neurônios de entrada (um para cada característica citada acima) e 8 neurônios de saída, sendo cada um ativado para um autor diferente.
+
+\par
+Como o número de blocos de textos é consideravelmente diferente para cada autor, conforme observado na Tabela \ref{tab:numero_blocos_autor}, $n$ blocos são selecionados pseudoaleatoriamente para cada autor, onde $n$ é a menor quantidade total de blocos possídos por um deles. Essa seleção é importantíssima pois evita um grande desbalanceamento das classes, desbalanceamento esse que poderia comprometer ou, até mesmo, mascarar os resultados obtidos pelo classificador.
+
+\subsection{Avaliação da Classificação}
+Para validação das classificações obtidas foi utilizado o \emph{k-fold}. Esse é um método de validação cruzada no qual os dados são divididos em $k$ subconjuntos (\emph{folds}) disjuntos de cardinalidade aproximadamente iguais. $k-1$ conjuntos são utilizados para classificação, enquanto o $fold$ restante é usado para teste. Este processo é realizado $k$ vezes até que todos os conjuntos tenham sido utilizados para teste uma vez. O resultado é a média e o desvio padrão obtidos para todos os experimentos.
+
+\par
+Para cada conjunto de blocos selecionados, são efetuadas 30 simulações utilizando o \emph{k-fold} com $k=10$.
+
