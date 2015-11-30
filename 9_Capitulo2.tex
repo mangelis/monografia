@@ -295,5 +295,56 @@ Redes semânticas podem ser construídas a partir de palavras que representam conc
 se se possuírem alguma relação semântica básica como, por exemplo, "é-um", "parte-todo" ou "oposição binária"
 \cite{sigman_2002_organization_wordnet}\cite{sole_language_networks}. Também foi verificado que essas redes apresentam uma organização altamente eficiente e que os \emph{hubs} representam palavras polissêmicas \cite{sole_language_networks}. Comumente, as redes semânticas apresentam um alto coeficiente de clusterização. Essa característica permite que buscas por associação sejam feitas rapidamente \cite{motter_2003_topology_net_lang}.
 
-\section{\emph{Perceptron} de Múltiplas Camadas (\emph{Multilayer Perceptron})}
+\section{Perceptron de Múltiplas Camadas}
+As redes neurais Perceptron de Múltiplas Camadas são aproximadores de funções conexionistas. São formadas por neurônios (unidades de processamento inspirados nas células homônimas) interconectados e divididos em camadas. Para cada um desses componentes, há uma função de ativação (em muitos casos, não linear) que serão responsáveis pela resposta do neurônio para dados estímulos (entradas).
+MLPs apresentam um bom poder de generalização e seu conhecimento é armazenado como pesos de cada ligação entre neurônios de camadas distintas \cite{meuser_rna}.
 
+\par
+Seu modelo de aprendizado é supervisionado. Isso significa que durante a fase de treinamento, devem ser apresentadas à rede as entradas e suas respectivas saídas. Para cada exemplo apresentado, os parâmetros internos (pesos de cada conexão) são ajustados em função do erro encontrado e do estado atual desses mesmos parâmetros. Após o treinamento, os sinais são propagados apenas no sentido das entradas para as saídas. Por este motivo, as MLPs são classificadas como redes \emph{feedforward}.
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=360pt]{imagens/rede_neural_ff_modificada.png}
+		\textbf{
+			\caption{
+				MLP com 1 camada escondida.
+			}
+			\label{fig:rede_neural}
+		}
+		\footnotesize{[Fonte: modificada de \cite{felipe_farias_mestrado}]}
+	\end{center}
+\end{figure}
+
+A arquitetura das MLPs (figura \ref{fig:rede_neural}) deve apresentar os seguintes constituintes:
+\begin{enumerate}
+	\item Uma camada de entrada: nesta camada estão presentes os neurônios que sofreram os estímulos externos (entradas);
+	\item $n$ camadas escondidas: está é a origem da não linearidade das MLPs. Tipicamente possuem funções de ativação não lineares, sendo exemplos clássicos a sigmóide logística e a tangente hiperbólica. Em \cite{haykin_rna} é mostrado que, com uma camada escondida, a rede é capaz de aproximar qualquer função contínua, e, que com duas, qualquer função. Entretanto o número de camadas não deve ser arbritariamente grande, pois para muitos algoritmos de treinamento, as taxas de erro podem aumentar \cite{prechelt_benchmark_rna};
+	\item Uma camada de saída: representam a saída da rede. Geralmente são utilizadas funções \emph{softmax} (função que generaliza as sigmóides) para problemas de classificação, mas também podem ser simples funções lineares.
+\end{enumerate}
+
+\par
+Existem vários algoritmos de treinamento para MLPs. Um dos mais conhecidos e utilizados é o \emph{backpropagation}. Nessa técnica de treinamento, geralmente é utilizado o método de otimização gradiente descendente. De acordo com \cite{meuser_rna}, o\emph{backpropagation} é constituído por duas fases:
+\begin{enumerate}
+	\item Os sinais de entrada são propagados em direção à saída da rede. Ao alcançar a última camada, a saída é calculada e o erro a ela atribuído;
+	\item O erro calculado na etapa anterior é propagado de volta para a entrada. Nesta travessia, é calculada a contribuição de cada neurônio para o erro, e seu peso é ajustado em função disso. A equação de atualização dos pesos também de acordo com \cite{haykin_rna} é:
+\end{enumerate}
+
+\begin{equation}
+	\label{eq:atualizar_pesos_rna}
+	w_{ij}^{m}(t+1) = w_{ij}^{m}(t) + 
+	\alpha \delta_{i}^{m}f^{m-1}(net_{j}^{m-1}) +
+	\beta \Delta w_{ij}^{m}(t-1),
+\end{equation}
+
+onde $\alpha$ é a taxa de aprendizagem, $\beta$ é a taxa de momento, $\delta$ é a sensibilidade que pode ser calculada de acordo com as equações \ref{eq:sensibilidade_entradas_backpropagation} e \ref{eq:sensibilidade_outras_backpropagation} para a camadas de entrada e as demais respectivamente:
+
+\begin{equation}
+	\label{eq:sensibilidade_entradas_backpropagation}
+	\delta_{i}^{m}=(d_{i} - y{i})f^{'}(net_{i})
+\end{equation}
+
+\begin{equation}
+	\label{eq:sensibilidade_outras_backpropagation}
+	\delta_{i}^{m-1}=f^{'(m-1)}(net_{j}^{m-1})
+		\sum_{i=l}^{N}w_{ij}^{m} \delta_{i}^{m}
+\end{equation}
