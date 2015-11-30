@@ -12,11 +12,37 @@
 \section{Grafos}
 Um grafo $\mathcal{G=(V,E)}$ é definido por um conjunto $\mathcal{V=}$$\{v_1,v_2, \ldots,v_n\}$ de vértices 
 e por um conjunto $\mathcal{E=}$$\{e_1,e_2, \ldots,e_m\}$ de arestas tais que $\mathcal{E \subseteq V \times V }$
-e $\mathcal{V \cap E = \emptyset}$. Eles podem ser direcionados ou não. No primeiro caso, suas arestas são pares
+e $\mathcal{V \cap E = \emptyset}$. Eles podem ser direcionados (figura \ref{fig:grafo_direcionado_ponderado}) ou não (figura \ref{fig:grafo_nao_direcionado_simples}) No primeiro caso, suas arestas são pares
 ordenados de vértices, já no segundo, a ordem é indiferente. Além disso, valores numéricos podem ser associados
 a cada aresta. Se este for o caso, o grafo é denominado ponderado. Um caminho de comprimento $L$ é uma sequência
 alternada $v_{1}e_{1}v_{2}e_{2}v_{3} \ldots v_{L-1}e_{L-1}v_{L}$ de vértices $v_{i}$ e arestas $e_{i}$ de forma que
 o vértice de destino de $e_{i}$ é $v_{i}$, e seu vértice de destino, $v_{i+1}$. Um cíclo é um caso particular de caminho onde $v_{1}=v_{L}$. Diz-se que um grafo é conectado quando existe ao menos um caminho conectando todos os pares de vértices.
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=180pt]{imagens/grafo_simples.png}
+		\textbf{
+			\caption{
+				Exemplo de grafo não direcionado simples.
+			}
+			\label{fig:grafo_nao_direcionado_simples}
+		}
+		\footnotesize{[Fonte: reproduzido de \text{http://graphml.graphdrawing.org/primer/simple.png}]}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=180pt]{imagens/grafo_direcionado_ponderado.png}
+		\textbf{
+			\caption{
+				Exemplo de grafo não direcionado simples.
+			}
+			\label{fig:grafo_direcionado_ponderado}
+		}
+		\footnotesize{[Fonte: reproduzido de \text{http://www.hipster4j.org/assets/css/custom/img/graph-example-hipster-blue.png}]}
+	\end{center}
+\end{figure}
 
 \par
 Um grafo $\mathcal{G}$ com $n$ vértices pode ser representado por uma matriz $\mathcal{A}=\left[a_{ij}\right]$ $n \times n$ como segue:
@@ -24,7 +50,7 @@ Um grafo $\mathcal{G}$ com $n$ vértices pode ser representado por uma matriz $\m
 \begin{gather}
 	a_{ij} =
 		\begin{cases}
-			w_{ij} & \text{se existe uma aresta de } a_{i} \text{ para } a_{j} \\
+			w_{ij} & \text{se existe uma aresta de } v_{i} \text{ para } v_{j} \\
 			0 & \text{caso contrário }
 		\end{cases} 
 	\intertext{Onde:}
@@ -33,7 +59,189 @@ Um grafo $\mathcal{G}$ com $n$ vértices pode ser representado por uma matriz $\m
 	\end{tabular}\nonumber
 \end{gather}
 
+\par
+Vértices podem ser nomeados de diversas maneiras: nós, pontos, agentes, etc. Arestas também: ligações, 
+
 \section{Redes Complexas}
+A pesquisa em redes complexas pode ser definida como a intersecção entre a teoria dos grafos e a mecânica estatística, 
+o que lhe garante uma forte natureza interdisciplinar \cite{luciano_2005_characterization}. 
+Por muito, se pensou que os relacionamentos entre vértices eram representados por padrões aleatórios, e um importantíssimo modelo de formação de grafos aleatórios foi proposto \cite{erdos_evolution_random_graphs}. Contudo, foi descoberto que as redes reais não se comportam como redes aleatórias, mas sim como explicado em importantes modelos, como os livres de escala \cite{barabasi_2007_scale_free_random} e os de redes \emph{small-world} \cite{watts_1998_small_world}.  
+
+\par
+Podem ser mencionados dois importantes motivos para a popularidade das redes complexas:
+\begin{enumerate}
+	\item grande parte dos sistemas complexos são modelados por sistemas de equações diferenciais cuja solução analítica é praticamente impraticavel;
+	\item as redes complexas apresentam grande flexibilidade e poder de generalização para representar virtualmente qualquer estrutura natural, incluindo aquelas dotadas de mudanças topológicas dinâmicas \cite{luciano_2005_characterization}
+\end{enumerate}
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=360pt]{imagens/redes_amigos_cor.png}
+		\textbf{
+			\caption{Rede de amizades de crianças em uma escola dos EUA. Trata-se de um grafo direcionado pois uma criança $A$ pode alegar ser amiga de outra criança $B$, mas não necessariamente o inverso. Os vértices são coloridos em função da cor da pele. A divisão horizontal da rede reflete o distanciamento entre indivíduos de etnias diferentes, enquanto a vertical remete à faixa etária.}
+			\label{fig:rede_amizade_cor}
+		}
+		\footnotesize{[Fonte: \cite{newman_structure_function_cn}]}
+	\end{center}
+\end{figure}
+
+\par
+Redes complexas têm sido estudas e aplicadas em várias de áreas da ciência \cite{wang_2008_cn_small_world_beyond}. Dentre as várias redes reais amplamente estudas estão:
+\begin{enumerate}
+	\item a internet: rede de computadores e roteadores de proporções colossais (figura \ref{fig:rede_internet});
+	\item o cérebro humano \cite{brain_bullmore_olaf} \cite{olaf_book_brain_networks};
+	\item redes de interação de proteínas;
+	\item redes sociais (figura \ref{fig:rede_amizade_cor});
+	\item redes de transmissão elétrica
+\end{enumerate}
+
+
+\begin{figure}[htpb]
+	\begin{center}
+		\includegraphics[width=360pt]{imagens/internet.png}
+		\textbf{
+			\caption{Visualização da estrutura da rede da internet. Cada nó é um "sistema autônomo" (grupos locais de computadores, cada um representando centenas ou milhares de máquinas.}
+			\label{fig:rede_internet}
+		}
+		\footnotesize{[Fonte: \cite{newman_structure_function_cn}]}
+	\end{center}
+\end{figure}
+
+\subsection{Métricas de redes complexas} 
+Medidas estrurais são frequentemente utilizadas para capturar informações topológicas acerca da rede. Existem miríades delas.
+Esta monigrafia utiliza algumas métricas que se mostraram potencialmente úteis na tarefa de distinguir traços estilísticos de textos em outros trabalhos \cite{amancio_2015_complex_network_approach_stylometry}\cite{amancio_2011_comparing_intermittency}\cite{amancio_2012_literary_movements}\cite{amancio_2015_flunctuation}\cite{amancio_phd}.
+Outras medidas também foram utilizadas, pois conceitualmente capturam características de centralidade com eficácia.
+
+\subsubsection{Grau e força}
+O grau é uma simples e importante medida de centralidade. Ele pode ser assim classificado, pois vértices que apresentam altos valores de grau são mais importantes (centrais) para a rede. O grau de um vértice $i$, denotado por $k_{i}$ é o número de arestas associadas a esse vértice. Para grafos não direcionados, seu valor pode ser obtido por
+\begin{equation}
+\label{eq:grau_grafo_nao_direcionado}
+k_{i} = \sum_{j}a_{ij}
+\end{equation}
+
+\par
+O grau médio de uma rede é a média dos valores de $k_{i}$ para todos os seus nós
+\begin{equation}
+\label{eq:grau_medio_grafo_nao_direcionado}
+\langle k \rangle = \frac{1}{N}\sum_{i}k_{i}
+\end{equation}
+Para redes representadas por grafos direcionados, há dois tipos de grau: o grau de saída, que representa a quantidade de arestas que partem de um vértice, e o grau de entrada, que corresponde ao número de arestas que tem o vértice em questão como destino. O grau total é definido como a soma dos dois anteriores
+\begin{equation}
+\label{eq:grau_saida_direcionado}
+k_{i}^{saída} = \sum_{j}a_{ij}
+\end{equation}
+\begin{equation}
+\label{eq:grau_entrada_direcionado}
+k_{i}^{entrada} = \sum_{j}a_{ji}
+\end{equation}
+\begin{equation}
+\label{eq:grau_total_direcionado}
+k_{i} = k_{i}^{saída} + k_{i}^{entrada}
+\end{equation}
+
+\par
+As médias de graus de entrada e saídas são as mesmas para redes conectadas.
+\begin{equation}
+\label{eq:grau_medio_grafo_direcionado}
+\langle k^{saída} \rangle = \langle k^{entrada} \rangle = \frac{1}{N}\sum_{i}k_{i}
+\end{equation}
+
+\par
+As definições acima mencionadas podem ser extendidas para grafos ponderados, mas frequentemente uma outra medida, chamada \emph{strength} (força), é empregada. Ela é definida pelas seguintes expressões:
+\begin{equation}
+\label{eq:grau_saida_direcionado_ponderado}
+s_{i}^{saída} = \sum_{j}w_{ij}
+\end{equation}
+\begin{equation}
+\label{eq:grau_entrada_direcionado_ponderado}
+s_{i}^{entrada} = \sum_{j}w_{ji}
+\end{equation}
+
+\par
+Essa métrica pode ser empregada em redes de citações, para verificar o número de citações recebidas por um artigo científico, ou em redes sociais, onde representa o grau de influência do indivíduo \cite{amancio_phd}.
+
+\subsubsection{Caminho mínimo médio}
+\label{subsubsection:caminho_minimo_medio}
+Sendo dist$(i,j)$ o comprimento do menor caminho que liga o vértice $v_{i}$ ao vértice $v_{j}$, o comprimento médio dos caminhos iniciados por $v_{i}$ pode ser expressado como
+\begin{equation}
+	\label{eq:comprimento_medio}
+	L_{i} = \frac{1}{M-1}\sum_{j=1}^{M}\text{dist}(i,j)
+\end{equation}
+Deve-se atentar para que dist$(i,i) = 0$, logo o denominador não deve ser o número total de vértices presentes na rede, mas sim esse número subtraído em uma unidade. Outra definição importante é o diâmetro da rede
+\begin{equation}
+	\label{eq:diametro}
+	d = \text{max dist}(i,j)
+\end{equation}
+
+\par
+De acordo com \cite{amancio_phd}, mesmo o menor caminho médio não sendo correlacionado com a frequência com que uma palavra aparece no texto, 
+vocábulos com altos valores de $L$ aparecem pouco frequentemente.
+
+\par
+Os grafos tratados neste trabalho são direcionados e ponderados, logo a distância entre dois vértices é a soma dos pesos das arestas que compõem o caminho entre eles.
+
+\par
+ Tradicionalmente, para grafos sem arestas múltiplas, o peso de uma aresta representa o número de vezes seus vértices aparecem conectados. No presente trabalho, contudo, os pesos das areastas foram invertidos:
+ \begin{equation}
+	\label{eq:pesos_invertidos}
+	w_{ij}^{novo} = \frac{1}{w_{ij}^{antigo}}
+ \end{equation}
+ 
+ Assim foi decido, pois no modelo construído para este trabalho, dois nós que frequentemente aparecem conectados devem ser considerados próximos.
+ 
+\subsubsection{Coeficiente de Aglomeração (\emph{Clustering Coefficient})}
+O coeficiente de clusterização (\emph{clustering coefficient}) $C$ quantifica o quão próximo de um clique (grafo totalmente conectado) é o subgrafo composto pelos vizinhos de um nó. Esta é uma medida frequentemente utilizada no estudo de redes sociais e, nesse cenário, pode ter seu significado exemplificado pela frase: "quantos amigos de meus amigos são amigos entre si?" Vértices que apresentam máximos valores de $C$ satisfazem a transitividade de vizinhos, ou seja, se dois vértices $v_{i}$ e $v_{j}$ são vizinhos de $v_{k}$, estão eles também estão conectados entre si. Percebe-se que esta metríca não pode ser definida para vértices que não possuem pelo menos 2 vizinhos. Então, se $\Psi_{i}$ é a quantidade de arestas entre os vizinhos de $v_{i}$, esse vértice tem seu coeficiente de aglomeração $C_{i}$ definido por
+\begin{equation}
+	\label{eq:coeficiente_aglomeracao}
+	C_{i} =
+	\begin{cases}
+	2\Psi_{i}/(k_{i}^{2} - k_{i}) & \text{para } k_{i} > 1,\\
+	0 & \text{para }  k_{i} \leq 1
+	\end{cases} 
+\end{equation}
+
+\par
+De acordo com \cite{amancio_2011_comparing_intermittency}, palavras com altos valores de coeficiente de aglomeração tem maior probabilidade de aparecer em contextos mais restritos. Ou seja, valores relativamente baixos de $C$ caracterizam palavras que aparecem em uma grande gama de contextos, explicando assim porque seus vizinhos são relativamente pouco conectados. Deve-se atentar para que $C$ é uma medida de centralidade local, isto é, para o seu cálculo são necessários apenas os nós vizinhos àquele que se tem interesse.
+
+
+\subsubsection{\emph{Betweenness}}
+O \emph{betweenness} ($B$) é uma medida de de centralidade que foi proposta \cite{freeman_betweenness}. Esta métrica considera que um vértice é importante se esse é acessado por um grande número de caminhos mínimos. Vértices com altos valores de \emph{betweenness} têm grande influência na rede, pois distribuem a informação pelo grafo. Por isso, em redes de sistemas de comunicação, esses vértices são os que cuja remoção mais impacta na comunicação entre outros vértices. \cite{newman_book_networks_intro}. Caso haja mais de um caminho entre dois vértices, o \emph{betweenness} será divido igualmente para todos. Desta forma, se existem $n_{L}$ caminhos mínimos entre dois nós, cada um desses terá seu \emph{betweenness} ponderado por $n_{L}^{-1}$. Assim como feito em \cite{amancio_phd}, neste trabalho o \emph{betweenness} será calculado de modo a evitar correlações com outras métricas. Sendo $\eta_{sit}$ o número de caminhos mínimos de $v_{s}$ a $v_{t}$ que passam por $v_{i}$, e $\eta_{st}$ o número de caminhos geodésicos que partem de $v_{s}$ para $v_{t}$, o \emph{betweenness} pode ser definido como
+\begin{equation}
+	\label{eq:betweenness}
+	B_{i}=\frac{1}{M^{2}}\sum_{s=1}^{M}\sum_{t=1}^{M}\frac{\eta_{sit}}{\eta_{st}}
+\end{equation}
+Majoritariamente, no contexto de análise textual, as palavras que apresentam altos valores de \emph{betweenness} são aquelas com alta frequência, e também algumas que conectam comunidades de conceitos relacionados.
+
+\par
+\cite{amancio_2011_comparing_intermittency} sugere que vocábulos com altos valores de $B$ ligam conceitos de comunidades semânticas distintas porque têm alta probabilidade de aparecerem em vários contextos. Similarmente como faz o coeficiente de agloremeração $C$, o \emph{betweenness} também representa a variedade de contextos que uma palavra pode aparecer, embora esse se baseie em padrões de conectividade globais, enquanto o primeiro, em padrões locais.
+
+\par
+Os valores de \emph{betweenness} calculados nos grafos gerados nesta monografia diferem daqueles gerados por \cite{amancio_phd} pois, como dito na seção \ref{subsubsection:caminho_minimo_medio}, os valores dos pesos das arestas foram redefinidos.
+
+
+\subsubsection{Assortatividade de Grau}
+Muito frequentemente é desejável saber se as ligações de uma rede são estabelecidas preferencialmente entre vértices pertencentes a uma mesma classe ou entre aqueles de classes distintas. Pensando nisso, a assortatividade foi proposta em \cite{newman_2002_assortativity}. Nete trabalho, foi utilizada a assortatividade de grau, ou seja, aquela que tem objetivo determinar se as ligações de um dado vértice são correlacionadas com o seu grau e de seus vizinhos. Um dos modos de definir matematimente esta correlação é por meio de probabilidades condicionais. Sendo $P(k,k^{'})$ a probabilidade de uma aresta conectar vértices com graus $k$ e $k^{'}$, a probilidade condicional de que um vértice com grau $k$ esteja conectado com um de grau $k_{'}$ é dada pela expressão:
+\begin{equation}
+	\label{eq:assortatividade_prob_condicional}
+	P(k^{'}|k) = \frac{\langle k \rangle P(k,k^{'})}{kP(k)}
+\end{equation}
+Contudo, a equação mais utilizada é aquela proposta no artigo que definiu a assortatividade:
+\begin{equation}
+	\label{eq:assortatividade_newman}
+	r = \frac{M^{-1}\sum_{i}j_{i}k_{i} - [M^{-1}\sum_{i}\frac{1}{2}(j_{i}+k_{i})]^{2}}
+	{M^{-1}\sum_{i}\frac{1}{2}(j_{i}^{2}+k_{i}^{2}) - [M^{-1}\sum_{i}\frac{1}{2}(j_{i}+k_{i})]^{2}}
+\end{equation}
+
+A rede é chamada não assortativa quando $r < 0$, isto é, vértices de graus baixos tendem a se conectar a outros nós de graus baixos. Quando $r > 0$, nós com elevados graus têm maiores chances de se conectarem a outros nós com altos valores de grau. Neste último caso, a rede é dita assortativa. 
+
+\subsubsection{\emph{PageRank}}
+O \emph{Pagerank} também é uma medida de centralidade e foi proposta em \cite{page_rank}. Ela é usada como uma das principais técnicas usadas no Google para mensuração da relevância de páginas \emph{web} em buscas feitas por usuários cotidianamente. Está técnica pode ser vista como um avanço à centralidade de Katz \cite{katz_centrality} \cite{newman_book_networks_intro}. A centralidade de Katz, como outras medidas dessa natureza, mede a influência de um nó na rede. Nessa métrica, o seu valor numérico não é de todo relevante, entretanto a informação útil está na identificação dos vértices que apresentam de centralidade altos ou baixos. Vértices com alta centralidade de Katz são acessíveis por vários outros nós. Todavia, um dos pontos negativos da centralidade de Katz é que se um nó com com alta centralidade têm um grande número de vizinhos, esses nós também apresentarão alta centralidade. O \emph{Pagerank} pondera essa redistribição de relevância na rede e matematicamente pode ser definido como
+\begin{equation}
+	\label{eq:pagerank}
+	\textbf{x}=\textbf{D}(\textbf{D} - \alpha\textbf{A})^{-1}\textbf{1}
+\end{equation}
+onde \textbf{1} é o vetor $(1,1,1,\dots)$, \textbf{D} é a matriz diagonal com elementos $D_{ij}=\text{max}(k_{i}^{out},1)$, e \textbf{x}, o vetor de centralidades. Com a reponderação de importância, o \emph{Pagerank} permite que apenas os reais nós centrais tenham valores elevados de centralidade.
+ 
 
 \section{Processamento de Texto}
 \subsection{\emph{Part-of-Speech tagging}}
@@ -87,4 +295,5 @@ Redes semânticas podem ser construídas a partir de palavras que representam conc
 se se possuírem alguma relação semântica básica como, por exemplo, "é-um", "parte-todo" ou "oposição binária"
 \cite{sigman_2002_organization_wordnet}\cite{sole_language_networks}. Também foi verificado que essas redes apresentam uma organização altamente eficiente e que os \emph{hubs} representam palavras polissêmicas \cite{sole_language_networks}. Comumente, as redes semânticas apresentam um alto coeficiente de clusterização. Essa característica permite que buscas por associação sejam feitas rapidamente \cite{motter_2003_topology_net_lang}.
 
-\section{Multilayer Perceptron}
+\section{\emph{Perceptron} de Múltiplas Camadas (\emph{Multilayer Perceptron})}
+
